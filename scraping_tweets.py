@@ -32,11 +32,11 @@ def ScrapTweets (search_words, date_until, num_tweets, num_runs, tweet_max_id = 
         
         if i > 0:
             last_tweet_id = (db_tweets['id_int'].iloc[-1] - 1)
-            tweets = tweepy.Cursor(api.search, q=search_words, lang="pt", max_id=last_tweet_id, tweet_mode='extended').items(num_tweets)
+            tweets = tweepy.Cursor(api.search, q=search_words, lang="en", max_id=last_tweet_id, tweet_mode='extended').items(num_tweets)
         elif tweet_max_id != 0:
-            tweets = tweepy.Cursor(api.search, q=search_words, lang="pt", max_id=(tweet_max_id - 1), tweet_mode='extended').items(num_tweets)
+            tweets = tweepy.Cursor(api.search, q=search_words, lang="en", max_id=(tweet_max_id - 1), tweet_mode='extended').items(num_tweets)
         else:
-            tweets = tweepy.Cursor(api.search, q=search_words, lang="pt", until=date_until, tweet_mode='extended').items(num_tweets)
+            tweets = tweepy.Cursor(api.search, q=search_words, lang="en", until=date_until, tweet_mode='extended').items(num_tweets)
 
         
         tweet_list = [tweet for tweet in tweets]
@@ -73,8 +73,8 @@ def ScrapTweets (search_words, date_until, num_tweets, num_runs, tweet_max_id = 
         end_run = time.time()
         duration_run = end_run-start_run
 
-        print('numero de tweets scrapeados na run {} eh {}'.format(i + 1, noTweets))
-        print('tempo levado para a a run {} foi de {} minutos'.format(i+1, round((duration_run)/60,2)))                        
+        print('Number of scrapped tweets in run {} are {}'.format(i + 1, noTweets))
+        print('Time taken to scrape run {} was {} minutes'.format(i+1, round((duration_run)/60,2)))                        
         if duration_run < 900 and (i+1) != num_runs:
             time.sleep(900-duration_run) 
             
@@ -88,5 +88,5 @@ def ScrapTweets (search_words, date_until, num_tweets, num_runs, tweet_max_id = 
     db_tweets.to_csv(filename, index = False)
     
     program_end = time.time()
-    print('Scraping completo!')
-    print('Tempo total de scrap foi de {} minutos.'.format(round(program_end - program_start)/60, 2))
+    print('Scraping complete!')
+    print('Total time taken was {} minutes.'.format(round(program_end - program_start)/60, 2))
