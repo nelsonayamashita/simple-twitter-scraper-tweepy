@@ -83,7 +83,7 @@ def ScrapTweets (search_words, date_until, num_tweets, num_runs, tweet_max_id = 
     to_csv_timestamp = datetime.today().strftime('%Y-%m-%d_%H%M%S')
 
     path = os.getcwd()
-    filename = path + '/data/' + to_csv_timestamp + '_eletric_sheep.csv'
+    filename = path + to_csv_timestamp + '_eletric_sheep.csv'
 
     db_tweets.to_csv(filename, index = False)
     
